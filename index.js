@@ -154,16 +154,17 @@ class LinkedList {
         prev.next = node;
     }
 
-    forEach(funct) {
-        var node = this.head;
-        var count = 0;
-        while (node) {
-            func(node, counter);
-            node = node.next;
-            count++;
+    forEach(fn) {
+        if (!this.head) {
+          return null;
         }
-        return;
-    }
+    
+        let node = this.head;
+        while (node) {
+          fn(node);
+          node = node.next;
+        }
+      }
     // forEach is not currently working
 
     // asterisk indicates a generator function
