@@ -153,6 +153,29 @@ class LinkedList {
         var node = new Node(data, prev.next);
         prev.next = node;
     }
+
+    forEach(funct) {
+        var node = this.head;
+        var count = 0;
+        while (node) {
+            func(node, counter);
+            node = node.next;
+            count++;
+        }
+        return;
+    }
+    // forEach is not currently working
+
+    // asterisk indicates a generator function
+    // in this case, the asterisk indicates a generator function with a key of 'symbol.iterator'
+    *[Symbol.iterator]() {
+        var node = this.head;
+        while (node) {
+            yield node;
+            node = node.next;
+        }
+    }
+    // the stuff above this allows the for...of loops function to work
 }
 
 module.exports = { Node, LinkedList };
