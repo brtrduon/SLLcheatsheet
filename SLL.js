@@ -1,160 +1,152 @@
 class Node {
-    constructor(data, next = null) {
-        this.data = data
-        this.next = next
-    }
+	constructor(data, next = null) {
+		this.data = data
+		this.next = next
+	}
 }
 
 class LinkedList { 
-    constructor() {
-        // head is set to null by default (nothing linked)
-        this.head = null
-        this.size = 0
-    }
+	constructor() {
+		// head is set to null by default (nothing linked)
+		this.head = null
+		this.size = 0
+	}
 
-    // insert first node
-    insertFirst(data) {
-        this.head = new Node(data, this.head)
-        // we indicate second param to be "this.head" to make make head no longer pointing to "null"
+	// insert first node
+	insertFirst(data) {
+		this.head = new Node(data, this.head)
+		// we indicate second param to be "this.head" to make make head no longer pointing to "null"
 
-        this.size++
-    }
+		this.size++
+	}
 
-    // insert last node
-    insertLast(data) {
-        let node = new Node(data)
-        let current
+	// insert last node
+	insertLast(data) {
+		let node = new Node(data)
+		let current
 
-        // if empty, make node the head
-        if (!this.head) {
-            this.head = node
-        }
+		// if empty, make node the head
+		if (!this.head) {
+			this.head = node
+		} else {
+			current = this.head
 
-        else {
-            current = this.head
+			while (current.next) {
+				current = current.next
+			}
 
-            while (current.next) {
-                current = current.next
-            }
+			current.next = node
+		}
 
-            current.next = node
-        }
+		this.size++
+	}
 
-        this.size++
-    }
+	// insert at index
+	insertAt(data, index) {
+		// if index is out of range
+		if (index > 0 && index > this.size) {
+			return
+		}
 
-    // insert at index
-    insertAt(data, index) {
+		// if first index
+		if (index === 0) {
+			this.head = new Node(data, this.head)
+			// alternatively, we could call "insertFirst" function that we created abvoe
+			return
+		} else {
+			// initialize vars
+			const node = new Node(data)
+			let current, previous
 
-        // if index is out of range
-        if (index > 0 && index > this.size) {
-            return
-        }
+			// set current to first
+			current = this.head
 
-        // if first index
-        if (index === 0) {
-            this.head = new Node(data, this.head)
-            // alternatively, we could call "insertFirst" function that we created abvoe
-            return
-        }
+			let count = 0
+			while (count < index) {
+				// node before the index
+				previous = current
 
-        else {
-            // initialize vars
-            const node = new Node(data)
-            let current, previous
-    
-            // set current to first
-            current = this.head
-    
-            let count = 0
-            while (count < index) {
-                // node before the index
-                previous = current
-    
-                count++
-                current = current.next
-            }
-    
-            node.next = current
-            previous.next = node
-    
-            this.size++
-        }
-    }
+				count++
+				current = current.next
+			}
 
-    // get at index
-    getAt(index) {
-        let current = this.head
-        let count = 0
+			node.next = current
+			previous.next = node
 
-        while (current) {
-            if (count === index) {
-                console.log(current.data)
-            }
+			this.size++
+		}
+	}
 
-            count++
+	// get at index
+	getAt(index) {
+		let current = this.head
+		let count = 0
 
-            // if we do not set current equal to current.next, this will result in an infinite loop
-            current = current.next
-        }
+		while (current) {
+			if (count === index) {
+				console.log(current.data)
+			}
 
-        return null
-    }
+			count++
 
-    // remove at index
-    removeAt(index) {
-        if (index > 0 && index > this.size) {
-            return
-        }
+			// if we do not set current equal to current.next, this will result in an infinite loop
+			current = current.next
+		}
 
-        let current = this.head
-        let previous
-        let count = 0
+		return null
+	}
 
-        // remove first index
-        if (index === 0) {
-            this.head = current.next
-        }
+	// remove at index
+	removeAt(index) {
+		if (index > 0 && index > this.size) {
+			return
+		}
 
-        else {
-            while (count < index) {
-                count++
-                previous = current
-                current = current.next
-            }
+		let current = this.head
+		let previous
+		let count = 0
 
-            previous.next = current.next
-        }
+		// remove first index
+		if (index === 0) {
+			this.head = current.next
+		} else {
+			while (count < index) {
+				count++
+				previous = current
+				current = current.next
+			}
 
-        this.size--
-    }
+			previous.next = current.next
+		}
 
-    // clear list
-    clearList() {
-        this.head = null
-        this.size = 0
-    }
+		this.size--
+	}
 
-    // print list data
-    printListData() {
-        let current = this.head
+	// clear list
+	clearList() {
+		this.head = null
+		this.size = 0
+	}
 
-        while (current) {
-            console.log(current.data)
-            current = current.next
-        }
-    }
+	// print list data
+	printListData() {
+		let current = this.head
+
+		while (current) {
+			console.log(current.data)
+			current = current.next
+		}
+	}
 }
 
-// testing if linked list logic works
-const ll = new LinkedList()
+// const ll = new LinkedList()
 
-ll.insertFirst(150)
-ll.insertFirst(250)
-ll.insertFirst(300)
-ll.insertLast(400)
+// ll.insertFirst(150)
+// ll.insertFirst(250)
+// ll.insertFirst(300)
+// ll.insertLast(400)
 
-ll.clearList()
+// ll.clearList()
 
-ll.printListData()
+// ll.printListData()
 // ll.getAt(2)
